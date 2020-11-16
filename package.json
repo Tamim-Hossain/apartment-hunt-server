@@ -1,31 +1,35 @@
 {
-  "name": "apartment-hunt-server",
-  "version": "1.0.0",
-  "description": "Apartment Hunt server-server",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Tamim-Hossain/apartment-hunt-server.git"
-  },
-  "keywords": [
-    "nodejs",
-    "expressjs",
-    "mongodb"
-  ],
-  "author": "Apartment Hunt contributor",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Tamim-Hossain/apartment-hunt-server/issues"
-  },
-  "homepage": "https://github.com/Tamim-Hossain/apartment-hunt-server#readme",
-  "devDependencies": {
-    "nodemon": "^2.0.6"
-  },
-  "dependencies": {
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1"
-  }
+    "name": "apartment-hunt-server",
+    "version": "1.0.0",
+    "description": "Apartment Hunt server-server",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "start:dev": "nodemon index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Tamim-Hossain/apartment-hunt-server.git"
+    },
+    "keywords": [
+        "nodejs",
+        "expressjs",
+        "mongodb"
+    ],
+    "author": "Apartment Hunt contributor",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Tamim-Hossain/apartment-hunt-server/issues"
+    },
+    "homepage": "https://github.com/Tamim-Hossain/apartment-hunt-server#readme",
+    "devDependencies": {
+        "nodemon": "^2.0.6"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "mongodb": "^3.6.3"
+    }
 }
