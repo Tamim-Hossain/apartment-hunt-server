@@ -38,13 +38,13 @@ client.connect((err) => {
         });
     });
 
-    app.get('/rent', (req, res) => {
+    app.get('/rents', (req, res) => {
         rentsCollection.find({}).toArray((err, documents) => {
             res.send(documents);
         });
     });
 
-    app.post('/rent', (req, res) => {
+    app.post('/rents', (req, res) => {
         const rents = req.body;
         rentsCollection.insertOne(rents).then((result) => {
             res.send(result.insertedCount > 0);
