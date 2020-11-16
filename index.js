@@ -11,32 +11,37 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster
 app.use(bodyParser.json());
 app.use(cors());
 
+app.get('/', (req, res) => {
+    res.send("Hello From db, it's working")
+})
+
 const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
 
 client.connect((err) => {
-    const bookingsCollection = client
-        .db('apartmentHunt')
-        .collection('bookings');
+    const bookingsCollection = client.db('apartmentHunt').collection('bookings');
     const rentsCollection = client.db('apartmentHunt').collection('rent');
-    const addRentsCollection = client
-        .db('apartmentHunt')
-        .collection('add-rent');
+    const addRentsCollection = client.db('apartmentHunt').collection('add-rent');
 
+    // To post all data
+    app.post('/bookings', (req, res) => {
+        const bookings = req.body;
+        bookingsCollection.insertMany(bookings)
+            .then((result) => {
+                res.send(result.insertedCount);
+            });
+    });
+
+    // To get all data
     app.get('/bookings', (req, res) => {
         bookingsCollection.find({}).toArray((err, documents) => {
             res.send(documents);
         });
     });
 
-    app.post('/bookings', (req, res) => {
-        const bookings = req.body;
-        bookingsCollection.insertOne(bookings).then((result) => {
-            res.send(result.insertedCount > 0);
-        });
-    });
+
 
     app.get('/rents', (req, res) => {
         rentsCollection.find({}).toArray((err, documents) => {
