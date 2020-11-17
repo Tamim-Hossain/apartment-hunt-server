@@ -17,15 +17,19 @@ const client = new MongoClient(uri, {
     useUnifiedTopology: true,
 });
 
-app.get('/', (req, res) => {
-    res.send('Server is working. YAY!')
-})
-
-
 client.connect((err) => {
-    const bookingsCollection = client.db('apartmentHunt').collection('bookings');
-    const addRentsCollection = client.db('apartmentHunt').collection('add-rent');
+    const bookingsCollection = client
+        .db('apartmentHunt')
+        .collection('bookings');
     const rentsCollection = client.db('apartmentHunt').collection('rent');
+    const addRentsCollection = client
+        .db('apartmentHunt')
+        .collection('add-rent');
+
+    // TEST
+    app.get('/', (req, res) => {
+        res.send('Server is working. YAY!');
+    });
 
     // POST
     app.post('/bookings', (req, res) => {
@@ -45,19 +49,39 @@ client.connect((err) => {
     //Params
     app.get('/bookings/:id', (req, res) => {
         const userId = ObjectID(req.params.id);
-        bookingsCollection.find({ _id: userId })
-            .toArray((err, documents) => {
-                res.send(documents[0]);
-            })
-    })
+        bookingsCollection.find({ _id: userId }).toArray((err, documents) => {
+            res.send(documents);
+        });
+    });
 
     // POST
-    app.post("/rents", (req, res) => {
-        const rent = req.body;
-        rentsCollection.insertOne(rent)
-            .then((result) => {
-                res.send(result.insertedCount > 0);
-            });
+    app.post('/rents', (req, res) => {
+        const rents = req.body;
+        rentsCollection.insertOne(rents).then((result) => {
+            res.send(result.insertedCount > 0);
+        });
+    });
+
+    //GET
+    app.get('/rents', (req, res) => {
+        rentsCollection.find({}).toArray((err, documents) => {
+            res.send(documents);
+        });
+    });
+
+    // POST
+    app.post('/add-rent', (req, res) => {
+        const AddedRents = req.body;
+        addRentsCollection.insertOne(AddedRents).then((result) => {
+            res.send(result.insertedCount > 0);
+        });
+    });
+
+    // GET
+    app.get('/add-rent', (req, res) => {
+        addRentsCollection.find({}).toArray((err, documents) => {
+            res.send(documents);
+        });
     });
 
     // POST
@@ -92,29 +116,6 @@ client.connect((err) => {
             .then((result) => {
                 res.send(result.insertedCount > 0);
             });
-    });
-
-
-    //GET
-    app.get('/rents', (req, res) => {
-        rentsCollection.find({}).toArray((err, documents) => {
-            res.send(documents);
-        });
-    });
-
-    // POST
-    app.post('/add-rent', (req, res) => {
-        const AddedRents = req.body;
-        addRentsCollection.insertOne(AddedRents).then((result) => {
-            res.send(result.insertedCount > 0);
-        });
-    });
-
-    // GET
-    app.get('/add-rent', (req, res) => {
-        addRentsCollection.find({}).toArray((err, documents) => {
-            res.send(documents);
-        });
     });
 });
 
