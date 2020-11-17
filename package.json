@@ -1,7 +1,7 @@
 {
     "name": "apartment-hunt-server",
     "version": "1.0.0",
-    "description": "Apartment Hunt server-server",
+    "description": "Apartment Hunt Server",
     "main": "index.js",
     "scripts": {
         "start": "node index.js",
