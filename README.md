@@ -1,1 +1,1 @@
-# apartment-hunt-server
+# Apartment Hunt Server
