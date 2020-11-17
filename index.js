@@ -17,11 +17,6 @@ const client = new MongoClient(uri, {
     useUnifiedTopology: true,
 });
 
-app.get('/', (req, res) => {
-    res.send('Server is working. YAY!')
-})
-
-
 client.connect((err) => {
     const bookingsCollection = client
         .db('apartmentHunt')
@@ -30,6 +25,11 @@ client.connect((err) => {
     const addRentsCollection = client
         .db('apartmentHunt')
         .collection('add-rent');
+
+    // TEST
+    app.get('/', (req, res) => {
+        res.send('Server is working. YAY!');
+    });
 
     // POST
     app.post('/bookings', (req, res) => {
@@ -49,13 +49,10 @@ client.connect((err) => {
     //Params
     app.get('/bookings/:id', (req, res) => {
         const userId = ObjectID(req.params.id);
-        bookingsCollection.find({ _id: userId })
-            .toArray((err, documents) => {
-                res.send(documents);
-            })
-    })
-
-
+        bookingsCollection.find({ _id: userId }).toArray((err, documents) => {
+            res.send(documents);
+        });
+    });
 
     // POST
     app.post('/rents', (req, res) => {
