@@ -16,9 +16,6 @@ const client = new MongoClient(uri, {
     useUnifiedTopology: true,
 });
 
-app.get('/', (req, res) => {
-    res.send('Server is Ready mama!');
-});
 
 client.connect((err) => {
     const bookingsCollection = client
