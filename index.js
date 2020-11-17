@@ -1,20 +1,21 @@
+require('dotenv').config();
 const express = require('express');
-const app = express();
-const port = 4000;
-const bodyParser = require('body-parser');
-const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
 require('dotenv').config();
 const ObjectId = require('mongodb').ObjectId;
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.q43xx.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
-app.use(bodyParser.json());
+const app = express();
 app.use(cors());
 
 const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+});
+
+app.get('/', (req, res) => {
+    res.send('Server is Ready mama!');
 });
 
 client.connect((err) => {
