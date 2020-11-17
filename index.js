@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
 require('dotenv').config();
+const cors = require('cors');
+const port = 4000;
 const ObjectId = require('mongodb').ObjectId;
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.q43xx.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
