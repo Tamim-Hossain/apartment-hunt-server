@@ -3,6 +3,7 @@ const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
 require('dotenv').config();
 const cors = require('cors');
+const { ObjectID } = require('mongodb');
 const port = 4000;
 const ObjectId = require('mongodb').ObjectId;
 
@@ -15,6 +16,10 @@ const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
+
+app.get('/', (req, res) => {
+    res.send('Server is working. YAY!')
+})
 
 
 client.connect((err) => {
@@ -43,11 +48,14 @@ client.connect((err) => {
 
     //Params
     app.get('/bookings/:id', (req, res) => {
-        const intId = parseInt(req.params.id);
-        eventCollection.find({ id: intId }).toArray((err, documents) => {
-            res.send(documents);
-        });
-    });
+        const userId = ObjectID(req.params.id);
+        bookingsCollection.find({ _id: userId })
+            .toArray((err, documents) => {
+                res.send(documents);
+            })
+    })
+
+
 
     // POST
     app.post('/rents', (req, res) => {
